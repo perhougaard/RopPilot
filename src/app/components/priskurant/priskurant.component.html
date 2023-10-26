@@ -1,0 +1,31 @@
+<kendo-grid 
+            kendoGridExpandGroupBy
+            [groupsInitiallyExpanded]="initiallyExpanded"
+            [(expandedGroupKeys)]="expandedGroupKeys"
+            [kendoGridBinding]="priskurantPoster"
+            [groupable]="false"
+            [group]="groups"
+            [sort]="sort"
+            [height]="1000"
+            [navigable]="true"
+        >       
+    <kendo-grid-column field="Priskurant" [hidden]="true"[width]="1">
+        <ng-template kendoGridGroupHeaderTemplate let-group="group">
+            {{ group.value ? group.value.split(":")[0] : "" }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="PriskurantAfsnit" [hidden]="true" [width]="1">
+        <ng-template kendoGridGroupHeaderTemplate let-group="group">
+            {{ group.value ? group.value.split(":")[0] : "" }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="PriskurantGruppe" [hidden]="true" [width]="1">
+        <ng-template kendoGridGroupHeaderTemplate let-group="group">
+            {{ group.value ? group.value.split(":")[0] : "" }}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="PostId" title="PostId" [width]="100"></kendo-grid-column>
+    <kendo-grid-column field="Tekst" title="Tekst" [width]="200"></kendo-grid-column>
+    <kendo-grid-column field="Enhed" title="Enhed" [width]="90"></kendo-grid-column>
+    <kendo-grid-column field="Listepris" title="Pris" [width]="80" format="n2"></kendo-grid-column>
+</kendo-grid> 
