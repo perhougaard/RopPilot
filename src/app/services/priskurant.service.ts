@@ -1,19 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { IPriskurantPost } from "../models/priskurantpost.model";
+import { GlobalErrorHandler } from "../utils/global.error.handler";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PriskurantService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private globalErrorHandler: GlobalErrorHandler) { }
   private priskurantPostFile = 'poster.json';
-  
-  getAllPriskurantPoster(): Observable<IPriskurantPost[]> {
-    return this.http.get<IPriskurantPost[]>(`assets/${this.priskurantPostFile}`)
-      .pipe(
-        tap(data => console.log('Priskurantposter blev indlæst'))
-      );
-  }
+  private mockDataUrl = `assets/${this.priskurantPostFile}`;
+
+  priskurantPoster$ = this.http.get<IPriskurantPost[]>(this.mockDataUrl)
+    .pipe(
+      tap(data => console.log('Priskurantposter blev indlæst ' + data.length)),
+      catchError(this.globalErrorHandler.handleError)
+    );
 }

@@ -1,22 +1,24 @@
-<kendo-treelist
-            [kendoTreeListFlatBinding]="regnskabPoster"
-            [navigable]="true"
-            [initiallyExpanded]="true"
-            kendoTreeListExpandable
-            idField="Id"
-            parentIdField="ParentId"
-            [rowClass]="rowCallback"
-            (cellClick)="cellClickHandler($event)"
-            (cellClose)="cellCloseHandler($event)"
-        >
-    <kendo-treelist-column [expandable]="true" field="Tekst" title="Tekst"></kendo-treelist-column>
-    <kendo-treelist-column field="PostId" title="Post" [width]="150"></kendo-treelist-column>
-    <kendo-treelist-column field="Maengde" title="Mængde" [width]="110" [style]="{'text-align': 'right'}" editor="numeric"></kendo-treelist-column>
-    <kendo-treelist-column field="Faktor" title="Faktor" [width]="110" [style]="{'text-align': 'right'}" editor="numeric"></kendo-treelist-column>
-    <kendo-treelist-column field="Pris" title="Pris" format="n2" [width]="90" [style]="{'text-align': 'right'}"></kendo-treelist-column>
-    <kendo-treelist-column field="Enhed" title="Enhed" [width]="100"></kendo-treelist-column>
-    <kendo-treelist-column field="Linjetotal" title="Total" format="n2" [width]="100" [style]="{'text-align': 'right'}"></kendo-treelist-column>
-    <kendo-treelist-column field="Prissaetning" title="Dato" [width]="120"></kendo-treelist-column> 
-    <kendo-treelist-column field="Linjenummer" title="ID" [width]="40" [style]="{'text-align': 'right'}" [editable]="false" [kendoTreeListFocusable]="false"></kendo-treelist-column>
-    <kendo-treelist-column field="Funktion" title="" [hidden]="true"></kendo-treelist-column> 
-</kendo-treelist>
+<ng-container *ngIf="{poster: regnskabPoster$|async} as data">
+    <kendo-treelist
+                [kendoTreeListFlatBinding]="data.poster || []"
+                [navigable]="true"
+                [initiallyExpanded]="true"
+                kendoTreeListExpandable
+                idField="Id"
+                parentIdField="ParentId"
+                [rowClass]="rowCallback"
+                (cellClick)="cellClickHandler($event)"
+                (cellClose)="cellCloseHandler($event)"
+            >
+        <kendo-treelist-column [expandable]="true" field="Tekst" title="Tekst"></kendo-treelist-column>
+        <kendo-treelist-column field="PostId" title="Post" [width]="150"></kendo-treelist-column>
+        <kendo-treelist-column field="Maengde" title="Mængde" [width]="110" [style]="{'text-align': 'right'}" editor="numeric"></kendo-treelist-column>
+        <kendo-treelist-column field="Faktor" title="Faktor" [width]="110" [style]="{'text-align': 'right'}" editor="numeric"></kendo-treelist-column>
+        <kendo-treelist-column field="Pris" title="Pris" format="n2" [width]="90" [style]="{'text-align': 'right'}"></kendo-treelist-column>
+        <kendo-treelist-column field="Enhed" title="Enhed" [width]="100"></kendo-treelist-column>
+        <kendo-treelist-column field="Linjetotal" title="Total" format="n2" [width]="100" [style]="{'text-align': 'right'}"></kendo-treelist-column>
+        <kendo-treelist-column field="Prissaetning" title="Dato" [width]="120"></kendo-treelist-column> 
+        <kendo-treelist-column field="Linjenummer" title="ID" [width]="40" [style]="{'text-align': 'right'}" [editable]="false" [kendoTreeListFocusable]="false"></kendo-treelist-column>
+        <kendo-treelist-column field="Funktion" title="" [hidden]="true"></kendo-treelist-column> 
+    </kendo-treelist>
+</ng-container>

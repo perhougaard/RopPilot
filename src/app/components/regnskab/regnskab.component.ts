@@ -1,30 +1,31 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GridSize, RowClassArgs } from '@progress/kendo-angular-grid';
-import { Subscription } from 'rxjs';
 import { IRegnskabPost } from 'src/app/models/regnskabpost.model';
 import { RegnskabService } from 'src/app/services/regnskab.service';
 import { CellClickEvent, CellCloseEvent } from '@progress/kendo-angular-treelist';
+import { EMPTY, catchError } from 'rxjs';
+import { GlobalErrorHandler } from "../../utils/global.error.handler";
 
 @Component({
   selector: 'app-regnskab',
   templateUrl: './regnskab.component.html',
   styleUrls: ['./regnskab.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class RegnskabComponent implements OnInit {
+export class RegnskabComponent {
 
-  constructor(private regnskabService: RegnskabService) {
-  }
-  public regnskabPoster: IRegnskabPost[] = [];
-  public gridSize: GridSize = "none";
-  sub!: Subscription;
+  constructor(private regnskabService: RegnskabService, private globalErrorHandler: GlobalErrorHandler) {}
+  errorMessage = '';
+  gridSize: GridSize = "none";
 
-  ngOnInit(): void {
-    this.sub = this.regnskabService.getAllRegnskabPoster().subscribe({
-      next: (regnskabPoster: IRegnskabPost[]) => { this.regnskabPoster = regnskabPoster}
-    });
-  }
+  regnskabPoster$ = this.regnskabService.regnskabPoster$.pipe(
+    catchError(() => {
+      this.globalErrorHandler.handleError
+      return EMPTY;
+    })
+  );
 
   public rowCallback = (context: RowClassArgs) => {
     if (context.dataItem.Funktion == 'afsnit') {
@@ -46,7 +47,7 @@ export class RegnskabComponent implements OnInit {
       e.preventDefault();
     } else if (formGroup.dirty) {
       Object.assign(dataItem, formGroup.value);
-      this.regnskabService.save(dataItem, this.regnskabPoster);
+      // this.regnskabService.save(dataItem, this.regnskabPoster$);
     }
   }
 

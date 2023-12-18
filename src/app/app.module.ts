@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +12,7 @@ import { RegnskabComponent } from './components/regnskab/regnskab.component';
 import RegnskabsummerComponent from './components/regnskabsummer/regnskabsummer.component';
 import { TreeListModule } from '@progress/kendo-angular-treelist';
 import { LayoutModule } from '@progress/kendo-angular-layout';
-
-
+import { GlobalErrorHandler } from './utils/global.error.handler';
 
 @NgModule({
   declarations: [
@@ -35,8 +34,14 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
     ]),
     TreeListModule,
     LayoutModule
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

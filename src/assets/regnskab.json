@@ -1,0 +1,21 @@
+{
+	"Regnskab": [
+		{
+			"Navn": "Pers regnskab",
+			"Firma": {
+				"Navn": "Per Pedersen Haarby A/S",
+				"CvrNummer": "58333514",
+				"Kladenavn": "Haarby",
+				"Adresse": "Østergaardsvej 5-7",
+				"Postnummer": "5683",
+				"By": "Haarby"
+			},
+			"Byggeplads": {
+				"Navn": "Kuben",
+				"Adresse": "Kirkebakken",
+				"Postnummer": "5540",
+				"By": "Ullerslev"
+			}
+		}
+	]
+}
