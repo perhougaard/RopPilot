@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PriskurantService } from '../../services/priskurant.service';
-import { EMPTY, catchError, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, tap } from 'rxjs';
 import { GroupDescriptor, SortDescriptor } from "@progress/kendo-data-query";
 import { GridSize, GroupKey } from '@progress/kendo-angular-grid';
 import { GlobalErrorHandler } from "../../utils/global.error.handler";
+import { IPriskurantPost } from 'src/app/models/priskurantpost.model';
 
 @Component({
   selector: 'app-priskurant',
@@ -14,18 +15,11 @@ import { GlobalErrorHandler } from "../../utils/global.error.handler";
 export class PriskurantComponent {
   constructor(private priskurantService: PriskurantService, private globalErrorHandler: GlobalErrorHandler) {}
 
-  groups: GroupDescriptor[] = [{field: "Priskurant"}, { field: "PriskurantAfsnit" }, {field: "PriskurantGruppe"}];
+  @Input() groups!: GroupDescriptor[];
+  @Input() priskurantPoster$!: Observable<IPriskurantPost[]>;
   sort: SortDescriptor[] = [{field: 'Priskurant', dir: 'desc'}, {field: 'AfsnitNummer', dir: 'desc'}];
   expandedGroupKeys: GroupKey[] = [];
   initiallyExpanded = false;
   gridSize: GridSize = "none";
   errorMessage = '';
-
-  priskurantPoster$ = this.priskurantService.priskurantPoster$
-    .pipe(
-      catchError( () => {
-        this.globalErrorHandler.handleError
-        return EMPTY;
-      })
-    );
 }

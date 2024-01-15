@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { OpstillingComponent } from './components/opstilling/opstilling.component';
 import { PriskurantComponent } from './components/priskurant/priskurant.component';
+import { PriskurantlistComponent } from './components/priskurantlist/priskurantlist.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegnskabComponent } from './components/regnskab/regnskab.component';
 import RegnskabsummerComponent from './components/regnskabsummer/regnskabsummer.component';
@@ -18,6 +19,7 @@ import { GlobalErrorHandler } from './utils/global.error.handler';
   declarations: [
     AppComponent,
     PriskurantComponent,
+    PriskurantlistComponent,
     RegnskabComponent,
     RegnskabsummerComponent,
     OpstillingComponent
